@@ -72,14 +72,10 @@ async def websocket_endpoint(
                     "created_at": str(new_msg.created_at)
                 })
 
+            # ... Chat logic handled above
             elif event in ["webrtc_offer", "webrtc_answer", "webrtc_ice_candidate"]:
-                # Signaling: Send to specific target user
-                target_user_id = message_data.get("target_user_id")
-                if target_user_id:
-                    # Forward the message as is, but include sender info
-                    message_data["sender_user_id"] = user.id
-                    message_data["sender_username"] = user.username
-                    await manager.send_to_user(room_id, target_user_id, message_data)
+                # This logic belongs in the feature/webrtc-video branch
+                pass
 
     except WebSocketDisconnect:
         manager.disconnect(room_id, user.id)
